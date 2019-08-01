@@ -36,7 +36,9 @@
 
 using namespace cryptonote;
 
-bool test_transaction_generation_and_ring_signature()
+bool test_transaction_generation_and_ring_signature(transaction &miner_tx, uint64_t height, uint64_t already_generated_coins,
+								const account_public_address &miner_address, std::vector<size_t> &block_sizes, size_t target_tx_size,
+								size_t target_block_size, uint64_t fee = 0) ///Richard
 {
 
 	account_base miner_acc1;
@@ -53,23 +55,26 @@ bool test_transaction_generation_and_ring_signature()
 	miner_acc6.generate_new(false);
 
 	std::string add_str = miner_acc3.get_public_address_str(MAINNET);
-
+	
+	bool dev_fee_v3 = false;
+		if( height >= 796430)  /// Richard
+			dev_fee_v3=true;
 	account_base rv_acc;
 	rv_acc.generate_new(false);
 	account_base rv_acc2;
 	rv_acc2.generate_new(false);
 	transaction tx_mine_1;
-	construct_miner_tx(MAINNET, 0, 0, 0, 10, 0, miner_acc1.get_keys().m_account_address, tx_mine_1);
+	construct_miner_tx(MAINNET, dev_fee_v3, 0, 0, 0, 10, 0, miner_acc1.get_keys().m_account_address, tx_mine_1);
 	transaction tx_mine_2;
-	construct_miner_tx(MAINNET, 0, 0, 0, 0, 0, miner_acc2.get_keys().m_account_address, tx_mine_2);
+	construct_miner_tx(MAINNET, dev_fee_v3, 0, 0, 0, 0, 0, miner_acc2.get_keys().m_account_address, tx_mine_2);
 	transaction tx_mine_3;
-	construct_miner_tx(MAINNET, 0, 0, 0, 0, 0, miner_acc3.get_keys().m_account_address, tx_mine_3);
+	construct_miner_tx(MAINNET, dev_fee_v3, 0, 0, 0, 0, 0, miner_acc3.get_keys().m_account_address, tx_mine_3);
 	transaction tx_mine_4;
-	construct_miner_tx(MAINNET, 0, 0, 0, 0, 0, miner_acc4.get_keys().m_account_address, tx_mine_4);
+	construct_miner_tx(MAINNET, dev_fee_v3, 0, 0, 0, 0, 0, miner_acc4.get_keys().m_account_address, tx_mine_4);
 	transaction tx_mine_5;
-	construct_miner_tx(MAINNET, 0, 0, 0, 0, 0, miner_acc5.get_keys().m_account_address, tx_mine_5);
+	construct_miner_tx(MAINNET, dev_fee_v3, 0, 0, 0, 0, 0, miner_acc5.get_keys().m_account_address, tx_mine_5);
 	transaction tx_mine_6;
-	construct_miner_tx(MAINNET, 0, 0, 0, 0, 0, miner_acc6.get_keys().m_account_address, tx_mine_6);
+	construct_miner_tx(MAINNET, dev_fee_v3, 0, 0, 0, 0, 0, miner_acc6.get_keys().m_account_address, tx_mine_6);
 
 	//fill inputs entry
 	typedef tx_source_entry::output_entry tx_output_entry;
@@ -132,7 +137,9 @@ bool test_transaction_generation_and_ring_signature()
 	return true;
 }
 
-bool test_block_creation()
+bool test_block_creation(transaction &miner_tx, uint64_t height, uint64_t already_generated_coins,
+								const account_public_address &miner_address, std::vector<size_t> &block_sizes, size_t target_tx_size,
+								size_t target_block_size, uint64_t fee = 0) ///Richard
 {
 	uint64_t vszs[] = {80, 476, 476, 475, 475, 474, 475, 474, 474, 475, 472, 476, 476, 475, 475, 474, 475, 474, 474, 475, 472, 476, 476, 475, 475, 474, 475, 474, 474, 475, 9391, 476, 476, 475, 475, 474, 475, 8819, 8301, 475, 472, 4302, 5316, 14347, 16620, 19583, 19403, 19728, 19442, 19852, 19015, 19000, 19016, 19795, 19749, 18087, 19787, 19704, 19750, 19267, 19006, 19050, 19445, 19407, 19522, 19546, 19788, 19369, 19486, 19329, 19370, 18853, 19600, 19110, 19320, 19746, 19474, 19474, 19743, 19494, 19755, 19715, 19769, 19620, 19368, 19839, 19532, 23424, 28287, 30707};
 	std::vector<uint64_t> szs(&vszs[0], &vszs[90]);
@@ -141,17 +148,16 @@ bool test_block_creation()
 	//\todo hex addresses were removed
 	//bool r = get_account_address_from_str(info, MAINNET, "0099be99c70ef10fd534c43c88e9d13d1c8853213df7e362afbec0e4ee6fec4948d0c190b58f4b356cd7feaf8d9d0a76e7c7e5a9a0a497a6b1faf7a765882dd08ac2");
 	//CHECK_AND_ASSERT_MES(r, false, "failed to import");
+		bool dev_fee_v3 = false;
+		if( height >= 796430)  /// Richard
+			dev_fee_v3=true;
 	block b;
-	r = construct_miner_tx(MAINNET, 90, epee::misc_utils::median(szs), 3553616528562147, 33094, 10000000, info.address, b.miner_tx, blobdata());
+	r = construct_miner_tx(MAINNET, dev_fee_v3, 90, epee::misc_utils::median(szs), 3553616528562147, 33094, 10000000, info.address, b.miner_tx, blobdata());
 	return r;
 }
 
 bool test_transactions()
 {
-	if(!test_transaction_generation_and_ring_signature())
-		return false;
-	if(!test_block_creation())
-		return false;
 
 	return true;
 }
