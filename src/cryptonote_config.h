@@ -167,7 +167,7 @@ static constexpr hardfork_conf FORK_CONFIG[] = {
 	{FORK_BULLETPROOFS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_BULLETPROOFS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_UNIFORM_IDS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_UNIFORM_IDS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
+	{FORK_UNIFORM_IDS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1}
 };
 
 // COIN - number of smallest units in one coin
