@@ -201,7 +201,7 @@ struct common_config
 
 	static constexpr uint64_t CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE = 1024 * 1024; // 1 mb
 	static constexpr uint64_t BLOCK_SIZE_GROWTH_FAVORED_ZONE = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE * 4;
-	static constexpr uint64_t TRANSACTION_SIZE_LIMIT = 300 * 1024;			// 300 kB
+	static constexpr uint64_t TRANSACTION_SIZE_LIMIT = 1024 * 1024;			// 1 mb
 	static constexpr uint64_t BLOCK_SIZE_LIMIT_ABSOLUTE = 16 * 1024 * 1024; // 16 MB
 	static constexpr uint64_t FEE_PER_KB = 500000;
 	static constexpr uint64_t FEE_PER_RING_MEMBER = 500000;
