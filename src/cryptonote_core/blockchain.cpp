@@ -84,7 +84,7 @@ static const struct
   { 1, 1, 0, 1482806500 },
   { 2, 21300, 0, 1497657600 },
   { 3, 72000, 0, 1524577218 }, // Roughly the 20th of April.
-  { 4, 208499, 0, 1531762611 } // Roughly the 23rd of July.
+  { 4, 208499, 0, 1531762611 }, // Roughly the 23rd of July.
 };
 
 static const uint64_t mainnet_hard_fork_version_1_till = (uint64_t)-1;
@@ -3060,35 +3060,6 @@ uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median
 //------------------------------------------------------------------
 bool Blockchain::check_fee(const transaction &tx, size_t blob_size, uint64_t fee) const
 {
-	uint64_t needed_fee = uint64_t(-1); // -1 is a safety mechanism
-
-	uint64_t fee_per_kb;
-	uint64_t median = m_current_block_cumul_sz_limit / 2;
-	uint64_t height = m_db->height();
-	uint64_t cal_height = height - height % COIN_EMISSION_HEIGHT_INTERVAL;
-	uint64_t cal_generated_coins = cal_height ? m_db->get_block_already_generated_coins(cal_height - 1) : 0;
-	uint64_t base_reward;
-	if(!get_block_reward(m_nettype, median, 1, cal_generated_coins, base_reward, height))
-		return false;
-	fee_per_kb = get_dynamic_per_kb_fee(base_reward, median);
-
-	LOG_PRINT_L2("Using " << print_money(fee) << "/kB fee");
-
-	//WHO THOUGHT THAT FLOATS IN CONSENSUS CODE ARE A GOOD IDEA?????
-	float kB = (blob_size - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE) * 1.0f / 1024;
-	needed_fee = ((uint64_t)(kB * fee_per_kb)) / 100 * 100;
-
-	if(fee < needed_fee)
-	{
-		MERROR_VER("transaction fee is not enough: " << print_money(fee) << ", minimum fee: " << print_money(needed_fee));
-		return false;
-	}
-
-	if(fee < needed_fee)
-	{
-		MERROR_VER("transaction fee is not enough: " << print_money(fee) << ", minimum fee: " << print_money(needed_fee));
-		return false;
-	}
 	return true;
 }
 
