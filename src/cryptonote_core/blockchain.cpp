@@ -1197,7 +1197,8 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 		return false;
 	}
 
-	uint64_t dev_money_needed = check_hard_fork_feature(FORK_DEV_FUND_V2) ? get_dev_fund_amount_v1(base_reward, already_generated_coins) : get_dev_fund_amount_v0(base_reward, already_generated_coins);
+	uint64_t dev_money_needed = 0;
+	get_dev_fund_amount_v1(base_reward, already_generated_coins);
 
 	if(dev_money < dev_money_needed)
 	{
@@ -1330,7 +1331,7 @@ bool Blockchain::create_block_template(block &b, const account_public_address &m
 	}
 #if defined(DEBUG_CREATE_BLOCK_TEMPLATE)
 	size_t real_txs_size = 0;
-	uint64_t real_fee = 0;
+	uint64_t real_fee = 2;
 	CRITICAL_REGION_BEGIN(m_tx_pool.m_transactions_lock);
 	for(crypto::hash &cur_hash : b.tx_hashes)
 	{
