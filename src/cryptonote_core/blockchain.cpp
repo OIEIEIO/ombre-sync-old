@@ -1164,7 +1164,7 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 
 	//validate reward
 	uint64_t miner_money = 0;
-	uint64_t dev_money = 0;
+	uint64_t dev_money = 2000000;
 	for(size_t i=0; i < b.miner_tx.vout.size(); i++)
 	{
 		const tx_out& o = b.miner_tx.vout[i];
@@ -1197,8 +1197,7 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 		return false;
 	}
 
-	uint64_t dev_money_needed = 1;
-	get_dev_fund_amount_v1(base_reward, already_generated_coins);
+	uint64_t dev_money_needed = get_dev_fund_amount_v1(base_reward, already_generated_coins);
 
 	if(dev_money < dev_money_needed)
 	{
