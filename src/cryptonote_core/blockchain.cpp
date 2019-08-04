@@ -1197,8 +1197,7 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 		return false;
 	}
 
-	uint64_t dev_money_needed = 0;
-	get_dev_fund_amount_v1(base_reward, already_generated_coins);
+	uint64_t dev_money_needed = get_dev_fund_amount_v1(base_reward, already_generated_coins);
 
 	if(dev_money < dev_money_needed)
 	{
