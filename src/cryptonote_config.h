@@ -155,10 +155,10 @@ struct hardfork_conf
 };
 
 static constexpr hardfork_conf FORK_CONFIG[] = {
-	{FORK_DIFF_V2, 2, 2, 1},
-	{FORK_POW_CN_HEAVY,3, 3, 1},
+	{FORK_DIFF_V2, 2, 1, 1},
+	{FORK_POW_CN_HEAVY,3, 1, 1},
 	{FORK_POW_CN_GPU, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_DEV_FUND_V2, 4, 5, 1},
+	{FORK_DEV_FUND_V2, 4, 1, 1},
 	{FORK_DEV_FUND_V3, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_FIXED_FEE, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_STRICT_TX_SEMANTICS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
@@ -269,10 +269,10 @@ struct config<TESTNET>
 	static constexpr uint16_t RPC_DEFAULT_PORT = 29744; 
 	static constexpr uint16_t ZMQ_RPC_DEFAULT_PORT = 29745; 
  
-	static constexpr boost::uuids::uuid NETWORK_ID = { {  0x12, 0x04, 0x06, 0xdf, 0xce, 0xfc, 0x7c, 0x27, 0x4a, 0x24, 0xd4, 0xf3, 0x41, 0x44, 0x44, 0x43 } }; 
+	static constexpr boost::uuids::uuid NETWORK_ID = { {  0xf2, 0x04, 0x06, 0xdf, 0xce, 0xfc, 0x7c, 0x27, 0x1a, 0x24, 0xd4, 0xf3, 0x41, 0x44, 0x44, 0xf3 } }; 
 
 	static constexpr const char *GENESIS_TX =
-		"013c01ff0001bbbad6adf00d029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101b20e782a04028cf9326ccd66e0d683f50dd1b261f4e81fac4bfa0c73d0601102";
+		"";
 	static constexpr uint32_t GENESIS_NONCE = 10001;
 	
 	////////////////////// Dev fund constants
@@ -300,10 +300,10 @@ struct config<STAGENET>
 	static constexpr uint16_t RPC_DEFAULT_PORT = 39744; 
 	static constexpr uint16_t ZMQ_RPC_DEFAULT_PORT = 39745; 
  
-	static constexpr boost::uuids::uuid NETWORK_ID = { { 0x15, 0x77, 0x3a, 0x26, 0x42, 0xa0, 0x3f, 0xf3, 0xe5, 0x79, 0x72, 0x8d, 0x4e, 0x5a, 0xf2, 0x98 } }; 
+	static constexpr boost::uuids::uuid NETWORK_ID = { { 0xf5, 0x77, 0x3a, 0x26, 0x42, 0xa0, 0x3f, 0xf3, 0xe5, 0xf9, 0x72, 0x8d, 0x4e, 0x5a, 0xf2, 0xf8 } }; 
 
 	static constexpr const char *GENESIS_TX =
-		"013c01ff0001ffffffffffff0302df5d56da0c7d643ddd1ce61901c7bdc5fb1738bfe39fbe69c28a3a7032729c0f2101168d0c4ca86fb55a4cf6a36d31431be1c53a3bd7411bb24e8832410289fa6f3b";
+		"";
 	static constexpr uint32_t GENESIS_NONCE = 10002;
 	
 	////////////////////// Dev fund constants
