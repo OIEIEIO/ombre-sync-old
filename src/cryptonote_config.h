@@ -41,7 +41,7 @@
 #define FINAL_SUBSIDY                                   ((uint64_t)10000000000) // 1 * pow(10, 9)
 #define GENESIS_BLOCK_REWARD                            ((uint64_t)1000000000)
 
-#define CRYPTONOTE_PROJECT_BLOCK_REWARD                 0.02 // Percentage of the total block reward.
+#define CRYPTONOTE_PROJECT_BLOCK_REWARD                 0 // Percentage of the total block reward.
 // Initial dev fee - drops down rapidly and averages to CRYPTONOTE_PROJECT_BLOCK_REWARD over time
 #define CRYPTONOTE_PROJECT_INITIAL_MULTIPLIER           0.06
 #define EMISSION_SPEED_FACTOR_PER_MINUTE (20)
@@ -159,7 +159,7 @@ static constexpr hardfork_conf FORK_CONFIG[] = {
 	{FORK_POW_CN_HEAVY,3, 3, 1},
 	{FORK_POW_CN_GPU, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_DEV_FUND_V2, 4, 5, 1},
-	{FORK_DEV_FUND_V3, 4, 5, 1},
+	{FORK_DEV_FUND_V3, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_FIXED_FEE, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_STRICT_TX_SEMANTICS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_RINGSIZE_INC, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
