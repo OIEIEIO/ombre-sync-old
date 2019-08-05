@@ -99,7 +99,7 @@ uint64_t get_dev_fund_amount_v1(uint64_t tx_total, uint64_t already_generated_co
 }
 
 //-----------------------------------------------------------------------------------------------
-bool get_block_reward(network_type nettype, size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint64_t height)
+bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint64_t height, uint8_t version)
 {
 	uint64_t base_reward;
 	uint64_t round_factor = 10000000; // 1 * pow(10, 7)
