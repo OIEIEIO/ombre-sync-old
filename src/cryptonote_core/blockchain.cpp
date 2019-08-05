@@ -1198,8 +1198,8 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 	}
 	
 	uint64_t dev_money_needed = check_hard_fork_feature(FORK_DEV_FUND_V2) ? get_dev_fund_amount_v1(base_reward, already_generated_coins) : get_dev_fund_amount_v0(base_reward, already_generated_coins);
-
 	if(dev_money < dev_money_needed)
+		
 	{
 		MERROR_VER("Coinbase transaction generates wrong dev fund amount. Generated " << print_money(dev_money) << " nedded " << print_money(dev_money_needed));
 		return false;
