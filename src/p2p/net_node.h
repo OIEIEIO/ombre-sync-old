@@ -134,6 +134,7 @@ class node_server : public epee::levin::levin_commands_handler<p2p_connection_co
 	 , "5.56.132.162"
 	 , "185.113.115.13"
      , "173.212.213.63"
+	 , "207.180.247.3"
     };
 
 	bool islimitup = false;
