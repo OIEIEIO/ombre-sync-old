@@ -3533,10 +3533,10 @@ bool Blockchain::handle_block_to_main_chain(const block &bl, const crypto::hash 
 	block_size = cumulative_block_size;
 	cumulative_difficulty = current_diffic;
 	// In the "tail" state when the minimum subsidy (implemented in get_block_reward) is in effect, the number of
-	// coins will eventually exceed MONEY_SUPPLY and overflow a uint64. To prevent overflow, cap already_generated_coins
-	// at MONEY_SUPPLY. already_generated_coins is only used to compute the block subsidy and MONEY_SUPPLY yields a
+	// coins will eventually exceed MONEY_SUPPLY_V4 and overflow a uint64. To prevent overflow, cap already_generated_coins
+	// at MONEY_SUPPLY_V4. already_generated_coins is only used to compute the block subsidy and MONEY_SUPPLY_V4 yields a
 	// subsidy of 0 under the base formula and therefore the minimum subsidy >0 in the tail state.
-	already_generated_coins = base_reward < (MONEY_SUPPLY - already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY;
+	already_generated_coins = base_reward < (MONEY_SUPPLY_V4 - already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_V4;
 	if(m_db->height())
 		cumulative_difficulty += m_db->get_block_cumulative_difficulty(m_db->height() - 1);
 

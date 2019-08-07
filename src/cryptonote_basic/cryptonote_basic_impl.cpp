@@ -85,7 +85,7 @@ size_t get_max_tx_size()
 uint64_t get_dev_fund_amount_v0(uint64_t tx_total, uint64_t already_generated_coins)
 {
 	float mult;
-	mult =  CRYPTONOTE_PROJECT_INITIAL_MULTIPLIER * (1 - std::sqrt((float)already_generated_coins / (float)MONEY_SUPPLY));
+	mult =  CRYPTONOTE_PROJECT_INITIAL_MULTIPLIER * (1 - std::sqrt((float)already_generated_coins / (float)MONEY_SUPPLY_V4));
 	mult = std::round(mult * 100000) / 100000; // 32bit float rounded to 5 decimal places for consistency (this ensures functional determinism)
 	
 	return tx_total * mult;
@@ -109,11 +109,11 @@ bool get_block_reward(network_type nettype, size_t median_size, size_t current_b
 		{
 			uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
 			double money_supply_pct = 0.1888 + interval_num * (0.023 + interval_num * 0.0032);
-			base_reward = ((uint64_t)(MONEY_SUPPLY * money_supply_pct)) >> EMISSION_SPEED_FACTOR;
+			base_reward = ((uint64_t)(MONEY_SUPPLY_V4 * money_supply_pct)) >> EMISSION_SPEED_FACTOR;
 		}
 		else
 		{
-			base_reward = (MONEY_SUPPLY - already_generated_coins) >> EMISSION_SPEED_FACTOR;
+			base_reward = (MONEY_SUPPLY_V4 - already_generated_coins) >> EMISSION_SPEED_FACTOR;
 		}
 	}
 	else
@@ -123,7 +123,7 @@ bool get_block_reward(network_type nettype, size_t median_size, size_t current_b
 
 	if(base_reward < FINAL_SUBSIDY)
 	{
-		if(MONEY_SUPPLY > already_generated_coins)
+		if(MONEY_SUPPLY_V4 > already_generated_coins)
 		{
 			base_reward = FINAL_SUBSIDY;
 		}
