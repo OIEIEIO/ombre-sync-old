@@ -86,7 +86,7 @@ bool construct_miner_tx(cryptonote::network_type nettype, size_t height, size_t 
 #if defined(DEBUG_CREATE_BLOCK_TEMPLATE)
 	LOG_PRINT_L1("Creating block template: reward " << block_reward << ", fee " << fee);
 #endif
-	uint64_t dev_fund_amount = get_dev_fund_amount_v1(block_reward, already_generated_coins)+1;
+	uint64_t dev_fund_amount = get_dev_fund_amount_v1(block_reward, already_generated_coins);
 	block_reward += fee;
 	block_reward -= dev_fund_amount;
 
