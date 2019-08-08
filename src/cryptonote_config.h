@@ -41,7 +41,7 @@
 #define FINAL_SUBSIDY                                   ((uint64_t)10000000000) // 1 * pow(10, 9)
 #define GENESIS_BLOCK_REWARD                            ((uint64_t)1000000000)
 
-#define CRYPTONOTE_PROJECT_BLOCK_REWARD                 0.02 // Percentage of the total block reward.
+#define CRYPTONOTE_PROJECT_BLOCK_REWARD                 0.0489 // Percentage of the total block reward.
 // Initial dev fee - drops down rapidly and averages to CRYPTONOTE_PROJECT_BLOCK_REWARD over time
 #define CRYPTONOTE_PROJECT_INITIAL_MULTIPLIER           0.06
 #define EMISSION_SPEED_FACTOR_PER_MINUTE (20)
