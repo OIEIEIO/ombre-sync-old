@@ -84,7 +84,7 @@ static const struct
   { 1, 1, 0, 1482806500 },
   { 2, 21300, 0, 1497657600 },
   { 3, 72000, 0, 1524577218 }, // Roughly the 20th of April.
-  { 4, 208499, 0, 1531762611 }, // Roughly the 23rd of July.
+  { 4, 208499, 0, 1531762611 } // Roughly the 23rd of July.
 };
 
 static const uint64_t mainnet_hard_fork_version_1_till = (uint64_t)-1;
@@ -1196,11 +1196,10 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 		MERROR_VER("coinbase transaction spend too much money (" << print_money(miner_money) << "). Block reward is " << print_money(base_reward + fee) << "(" << print_money(base_reward) << "+" << print_money(fee) << ")");
 		return false;
 	}
-	
-	uint64_t dev_money_needed = CRYPTONOTE_PROJECT_BLOCK_REWARD;
-	check_hard_fork_feature(FORK_DEV_FUND_V2) ? get_dev_fund_amount_v1(base_reward, already_generated_coins) : get_dev_fund_amount_v0(base_reward, already_generated_coins);
-	
-	if(dev_money < dev_money_needed)	
+
+	uint64_t dev_money_needed = check_hard_fork_feature(FORK_DEV_FUND_V2) ? get_dev_fund_amount_v1(base_reward, already_generated_coins) : get_dev_fund_amount_v0(base_reward, already_generated_coins);
+
+	if(dev_money < dev_money_needed)
 	{
 		MERROR_VER("Coinbase transaction generates wrong dev fund amount. Generated " << print_money(dev_money) << " nedded " << print_money(dev_money_needed));
 		return false;
@@ -3061,6 +3060,35 @@ uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median
 //------------------------------------------------------------------
 bool Blockchain::check_fee(const transaction &tx, size_t blob_size, uint64_t fee) const
 {
+	uint64_t needed_fee = uint64_t(-1); // -1 is a safety mechanism
+
+	uint64_t fee_per_kb;
+	uint64_t median = m_current_block_cumul_sz_limit / 2;
+	uint64_t height = m_db->height();
+	uint64_t cal_height = height - height % COIN_EMISSION_HEIGHT_INTERVAL;
+	uint64_t cal_generated_coins = cal_height ? m_db->get_block_already_generated_coins(cal_height - 1) : 0;
+	uint64_t base_reward;
+	if(!get_block_reward(m_nettype, median, 1, cal_generated_coins, base_reward, height))
+		return false;
+	fee_per_kb = get_dynamic_per_kb_fee(base_reward, median);
+
+	LOG_PRINT_L2("Using " << print_money(fee) << "/kB fee");
+
+	//WHO THOUGHT THAT FLOATS IN CONSENSUS CODE ARE A GOOD IDEA?????
+	float kB = (blob_size - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE) * 1.0f / 1024;
+	needed_fee = ((uint64_t)(kB * fee_per_kb)) / 100 * 100;
+
+	if(fee < needed_fee)
+	{
+		MERROR_VER("transaction fee is not enough: " << print_money(fee) << ", minimum fee: " << print_money(needed_fee));
+		return false;
+	}
+
+	if(fee < needed_fee)
+	{
+		MERROR_VER("transaction fee is not enough: " << print_money(fee) << ", minimum fee: " << print_money(needed_fee));
+		return false;
+	}
 	return true;
 }
 
@@ -3534,10 +3562,10 @@ bool Blockchain::handle_block_to_main_chain(const block &bl, const crypto::hash 
 	block_size = cumulative_block_size;
 	cumulative_difficulty = current_diffic;
 	// In the "tail" state when the minimum subsidy (implemented in get_block_reward) is in effect, the number of
-	// coins will eventually exceed MONEY_SUPPLY_V4 and overflow a uint64. To prevent overflow, cap already_generated_coins
-	// at MONEY_SUPPLY_V4. already_generated_coins is only used to compute the block subsidy and MONEY_SUPPLY_V4 yields a
+	// coins will eventually exceed MONEY_SUPPLY and overflow a uint64. To prevent overflow, cap already_generated_coins
+	// at MONEY_SUPPLY. already_generated_coins is only used to compute the block subsidy and MONEY_SUPPLY yields a
 	// subsidy of 0 under the base formula and therefore the minimum subsidy >0 in the tail state.
-	already_generated_coins = base_reward < (MONEY_SUPPLY_V4 - already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_V4;
+	already_generated_coins = base_reward < (MONEY_SUPPLY - already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY;
 	if(m_db->height())
 		cumulative_difficulty += m_db->get_block_cumulative_difficulty(m_db->height() - 1);
 
