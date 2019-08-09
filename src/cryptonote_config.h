@@ -159,7 +159,7 @@ static constexpr hardfork_conf FORK_CONFIG[] = {
 	{FORK_POW_CN_HEAVY,3, 3, 1},
 	{FORK_POW_CN_GPU, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_DEV_FUND_V2, 1, 1, 1},
-	{FORK_DEV_FUND_V3, 4, 4, 1},
+	{FORK_DEV_FUND_V3, 5, 4, 1},
 	{FORK_FIXED_FEE, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_STRICT_TX_SEMANTICS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_RINGSIZE_INC, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
