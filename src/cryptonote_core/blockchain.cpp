@@ -1157,7 +1157,7 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 	}
 
 	//validate reward
-	uint64_t miner_money = base_reward - (fee + CRYPTONOTE_PROJECT_BLOCK_REWARD);
+	uint64_t miner_money = 0;
 	uint64_t dev_money = 0;
 	for(size_t i=0; i < b.miner_tx.vout.size(); i++)
 	{
@@ -1191,13 +1191,7 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 		return false;
 	}
 
-	uint64_t dev_money_needed = dev_money;
-
-	if(dev_money < dev_money_needed)
-	{
-		MERROR_VER("Coinbase transaction generates wrong dev fund amount. Generated " << print_money(dev_money) << " nedded " << print_money(dev_money_needed));
-		return false;
-	}
+	uint64_t dev_money_needed = check_hard_fork_feature(FORK_DEV_FUND_V2) ? get_dev_fund_amount_v1(base_reward, already_generated_coins) : get_dev_fund_amount_v0(base_reward, already_generated_coins);
 
 	// from hard fork 2, since a miner can claim less than the full block reward, we update the base_reward
 	// to show the amount of coins that were actually generated, the remainder will be pushed back for later
