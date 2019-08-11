@@ -1157,7 +1157,7 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 	}
 
 	//validate reward
-	uint64_t miner_money = 0;
+	uint64_t miner_money = base_reward - (fee + CRYPTONOTE_PROJECT_BLOCK_REWARD);
 	uint64_t dev_money = 0;
 	for(size_t i=0; i < b.miner_tx.vout.size(); i++)
 	{
