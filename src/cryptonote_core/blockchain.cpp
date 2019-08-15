@@ -84,7 +84,8 @@ static const struct
   { 1, 1, 0, 1482806500 },
   { 2, 21300, 0, 1497657600 },
   { 3, 72000, 0, 1524577218 }, // Roughly the 20th of April.
-  { 4, 208499, 0, 1531762611 } // Roughly the 23rd of July.
+  { 4, 208499, 0, 1531762611 }, // Roughly the 23rd of July.
+  { 5, 745298, 0, 1565823600 } // Test Fork
 };
 
 static const uint64_t mainnet_hard_fork_version_1_till = (uint64_t)-1;
@@ -3065,7 +3066,7 @@ bool Blockchain::check_fee(const transaction &tx, size_t blob_size, uint64_t fee
 
 	//WHO THOUGHT THAT FLOATS IN CONSENSUS CODE ARE A GOOD IDEA?????
 	float kB = (blob_size - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE) * 1.0f / 1024;
-	needed_fee = ((uint64_t)(kB * fee_per_kb)) / 100 * 100;
+	needed_fee = ((uint64_t)(kB * fee_per_kb)) / 1000 * 100;
 
 	if(fee < needed_fee)
 	{
