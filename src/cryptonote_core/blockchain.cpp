@@ -1149,8 +1149,11 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 	LOG_PRINT_L3("Blockchain::" << __func__);
 	crypto::public_key tx_pub = get_tx_pub_key_from_extra(b.miner_tx);
 	crypto::key_derivation deriv;
+	
+	const crypto::secret_key& dev_view_key = check_hard_fork_feature(FORK_DEV_FUND_V3) ? m_dev_view_key_v1 : m_dev_view_key_v2;
+	const crypto::public_key& dev_spend_key = check_hard_fork_feature(FORK_DEV_FUND_V3) ?  m_dev_spend_key_v1 : m_dev_spend_key_v2;
 
-	if(tx_pub == null_pkey || !generate_key_derivation(tx_pub, m_dev_view_key_v1, deriv))
+	if(tx_pub == null_pkey || !generate_key_derivation(tx_pub, dev_view_key, deriv))
 	{
 		MERROR_VER("Transaction public key is absent or invalid!");
 		return false;
@@ -1164,7 +1167,7 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 		const tx_out& o = b.miner_tx.vout[i];
 		crypto::public_key pk;
 
-		CHECK_AND_ASSERT_MES(derive_public_key(deriv, i, m_dev_spend_key_v1, pk), false, "Dev public key is invalid!");
+		CHECK_AND_ASSERT_MES(derive_public_key(deriv, i, dev_spend_key, pk), false, "Dev public key is invalid!");
 		CHECK_AND_ASSERT_MES(o.target.type() == typeid(txout_to_key), false, "Out needs to be txout_to_key!");
 		CHECK_AND_ASSERT_MES(o.amount != 0, false, "Non-plaintext output in a miner tx");
 
@@ -1191,8 +1194,13 @@ bool Blockchain::validate_miner_transaction_v2(const block &b, uint64_t height, 
 		return false;
 	}
 
-	uint64_t dev_money_needed = check_hard_fork_feature(FORK_DEV_FUND_V2) ? get_dev_fund_amount_v1(base_reward, already_generated_coins) : get_dev_fund_amount_v0(base_reward, already_generated_coins);
+	uint64_t dev_money_needed = 0;
 
+	if(dev_money < dev_money_needed)
+	{
+		MERROR_VER("Coinbase transaction generates wrong dev fund amount. Generated " << print_money(dev_money) << " nedded " << print_money(dev_money_needed));
+		return false;
+	}
 
 	// from hard fork 2, since a miner can claim less than the full block reward, we update the base_reward
 	// to show the amount of coins that were actually generated, the remainder will be pushed back for later
