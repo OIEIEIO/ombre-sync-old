@@ -85,7 +85,11 @@ static const struct
   { 2, 21300, 0, 1497657600 },
   { 3, 72000, 0, 1524577218 }, // Roughly the 20th of April.
   { 4, 208499, 0, 1531762611 }, // Roughly the 23rd of July.
-  { 5, 749000, 0, 1565962320 } // Test
+  { 5, 749000, 0, 1565962320 }, // Test
+  { 6, 749090, 0, 1566061200 }, // Fixed fee addition
+  { 7, 749100, 0, 1566061200 }, // Bulletproof Addition
+  { 8, 749110, 0, 1566061200 ), // Ringsize Addition
+  { 9, 749120, 0, 1566061200 } // Change Algo to CN_GPU 
 };
 
 static const uint64_t mainnet_hard_fork_version_1_till = (uint64_t)-1;
