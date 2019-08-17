@@ -88,7 +88,7 @@ static const struct
   { 5, 749000, 0, 1565962320 }, // Test
   { 6, 749090, 0, 1566061200 }, // Fixed fee addition
   { 7, 749100, 0, 1566061200 }, // Bulletproof Addition
-  { 8, 749110, 0, 1566061200 ), // Ringsize Addition
+  { 8, 749110, 0, 1566061200 }, // Ringsize Addition
   { 9, 749120, 0, 1566061200 } // Change Algo to CN_GPU 
 };
 
