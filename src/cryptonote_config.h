@@ -159,7 +159,7 @@ static constexpr hardfork_conf FORK_CONFIG[] = {
 	{FORK_POW_CN_HEAVY,3, 3, 1},
 	{FORK_POW_CN_GPU, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_DEV_FUND_V2, 4, 4, 1},
-	{FORK_DEV_FUND_V3, 4, 4, 1},
+	{FORK_DEV_FUND_V3, 5, 4, 1},
 	{FORK_FIXED_FEE, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_STRICT_TX_SEMANTICS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_RINGSIZE_INC, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
@@ -199,7 +199,7 @@ struct common_config
 
 	static constexpr uint64_t BLOCK_FUTURE_TIME_LIMIT = 60 * 24;
 
-	static constexpr uint64_t CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE = 300 * 1024; // 300 kB
+	static constexpr uint64_t CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE = 240 * 1024; // 240 kB
 	static constexpr uint64_t BLOCK_SIZE_GROWTH_FAVORED_ZONE = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE * 4;
 	static constexpr uint64_t TRANSACTION_SIZE_LIMIT = 300 * 1024;			// 300 kB
 	static constexpr uint64_t BLOCK_SIZE_LIMIT_ABSOLUTE = 16 * 1024 * 1024; // 16 MB
@@ -248,10 +248,10 @@ struct config<MAINNET>
 
 	////////////////////// Dev fund constants
 	// How ofen do we add the dev reward
-	static constexpr uint64_t DEV_FUND_PERIOD = 15 * 24 * 7; // 1 week
-	static constexpr uint64_t DEV_FUND_AMOUNT = MK_COINS(8000000);
+	static constexpr uint64_t DEV_FUND_PERIOD = 60 * 24; // 1 day
+	static constexpr uint64_t DEV_FUND_AMOUNT = MK_COINS(2000000);
 	static constexpr uint64_t DEV_FUND_LENGTH = 52 * 6; // 6 years
-	static constexpr uint64_t DEV_FUND_START  = 746890;
+	static constexpr uint64_t DEV_FUND_START  = 790000;
 };
 
 template <>
