@@ -155,19 +155,19 @@ struct hardfork_conf
 };
 
 static constexpr hardfork_conf FORK_CONFIG[] = {
-	{FORK_DIFF_V2, 2, 2, 1},
-	{FORK_POW_CN_HEAVY,3, 3, 1},
-	{FORK_POW_CN_GPU, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_DEV_FUND_V2, 4, 4, 1},
-	{FORK_DEV_FUND_V3, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_FIXED_FEE, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_STRICT_TX_SEMANTICS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_RINGSIZE_INC, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_RINGSIZE_INC_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_BULLETPROOFS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_BULLETPROOFS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_UNIFORM_IDS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
-	{FORK_UNIFORM_IDS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1}
+	{FORK_DIFF_V2, 2, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_POW_CN_HEAVY,3, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_POW_CN_GPU, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_DEV_FUND_V2, 4, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_DEV_FUND_V3, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_FIXED_FEE, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_STRICT_TX_SEMANTICS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_RINGSIZE_INC, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_RINGSIZE_INC_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_BULLETPROOFS, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_BULLETPROOFS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_UNIFORM_IDS, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
+	{FORK_UNIFORM_IDS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED}
 };
 
 // COIN - number of smallest units in one coin
