@@ -159,7 +159,7 @@ static constexpr hardfork_conf FORK_CONFIG[] = {
 	{FORK_POW_CN_HEAVY,3, 3, 1},
 	{FORK_POW_CN_GPU, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_DEV_FUND_V2, 4, 4, 1},
-	{FORK_DEV_FUND_V3, hardfork_conf::FORK_ID_DISABLED, 4, 1},
+	{FORK_DEV_FUND_V3, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_FIXED_FEE, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_STRICT_TX_SEMANTICS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
 	{FORK_RINGSIZE_INC, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
@@ -248,8 +248,8 @@ struct config<MAINNET>
 
 	////////////////////// Dev fund constants
 	// How ofen do we add the dev reward
-	static constexpr uint64_t DEV_FUND_PERIOD = 60; // testing
-	static constexpr uint64_t DEV_FUND_AMOUNT = MK_COINS(2000000);
+	static constexpr uint64_t DEV_FUND_PERIOD = 10; // testing
+	static constexpr uint64_t DEV_FUND_AMOUNT = MK_COINS(20000000);
 	static constexpr uint64_t DEV_FUND_LENGTH = 52 * 6; // 6 years
 	static constexpr uint64_t DEV_FUND_START  = 749000;
 };

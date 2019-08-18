@@ -352,19 +352,18 @@ std::set<std::string> node_server<t_payload_net_handler>::get_seed_nodes(crypton
 	std::set<std::string> full_addrs;
 	if(nettype == cryptonote::TESTNET)
 	{
-		full_addrs.insert("5.56.132.147:29743");
-		full_addrs.insert("178.128.181.80:29743");
+
 	}
 	else if(nettype == cryptonote::STAGENET)
 	{
-		full_addrs.insert("5.56.132.147:39743");
-		full_addrs.insert("178.128.181.80:39743");
+
 	}
 	else
 	{
-		full_addrs.insert("185.113.115.13:19743");
+		full_addrs.insert("207.180.247.3:19743");
 		full_addrs.insert("5.56.132.162:19743");
 		full_addrs.insert("91.90.42.91:19743");
+		full_addrs.insert("89.252.203.250:19743");
 	}
 	return full_addrs;
 }

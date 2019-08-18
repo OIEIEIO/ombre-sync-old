@@ -157,7 +157,7 @@ bool get_block_reward(network_type nettype, size_t median_size, size_t current_b
 
 	if(current_block_size <= (median_size < common_config::BLOCK_SIZE_GROWTH_FAVORED_ZONE ? median_size * 110 / 100 : median_size))
 	{
-		reward = base_reward / 2; 
+		reward = base_reward; 
 
 		return true;
 	}
