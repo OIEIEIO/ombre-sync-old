@@ -106,7 +106,7 @@ template bool get_dev_fund_amount<TESTNET>(uint64_t height, uint64_t& amount);
 template bool get_dev_fund_amount<STAGENET>(uint64_t height, uint64_t& amount);
 
 //-----------------------------------------------------------------------------------------------
-bool get_block_reward(network_type nettype, size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint64_t height, uint8_t version)
+bool get_block_reward(network_type nettype, size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint64_t height)
 {
 	uint64_t base_reward;
 	uint64_t round_factor = 10000000; // 1 * pow(10, 7)
@@ -158,9 +158,6 @@ bool get_block_reward(network_type nettype, size_t median_size, size_t current_b
 	if(current_block_size <= (median_size < common_config::BLOCK_SIZE_GROWTH_FAVORED_ZONE ? median_size * 110 / 100 : median_size))
 	{
 		reward = base_reward;
-		if (version > 3) {
-        reward = reward / 2;
-      }
 		return true;
 	}
 
