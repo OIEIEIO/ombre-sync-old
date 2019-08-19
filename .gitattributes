@@ -1,2 +1,2 @@
-.git* export-ignore
-src/version.cpp.in export-subst
+# Auto detect text files and perform LF normalization
+* text=auto

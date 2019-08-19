@@ -155,19 +155,19 @@ struct hardfork_conf
 };
 
 static constexpr hardfork_conf FORK_CONFIG[] = {
-	{FORK_DIFF_V2, 2, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_POW_CN_HEAVY,3, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_POW_CN_GPU, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_DEV_FUND_V2, 4, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_DEV_FUND_V3, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_FIXED_FEE, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_STRICT_TX_SEMANTICS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_RINGSIZE_INC, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_RINGSIZE_INC_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_BULLETPROOFS, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_BULLETPROOFS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_UNIFORM_IDS, 5, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED},
-	{FORK_UNIFORM_IDS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED}
+	{FORK_DIFF_V2, 2, 2, 1},
+	{FORK_POW_CN_HEAVY,3, 3, 1},
+	{FORK_POW_CN_GPU, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
+	{FORK_DEV_FUND_V2, 4, 4, 1},
+	{FORK_DEV_FUND_V3, 5, 4, 1},
+	{FORK_FIXED_FEE, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
+	{FORK_STRICT_TX_SEMANTICS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
+	{FORK_RINGSIZE_INC, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
+	{FORK_RINGSIZE_INC_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
+	{FORK_BULLETPROOFS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
+	{FORK_BULLETPROOFS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
+	{FORK_UNIFORM_IDS, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1},
+	{FORK_UNIFORM_IDS_REQ, hardfork_conf::FORK_ID_DISABLED, hardfork_conf::FORK_ID_DISABLED, 1}
 };
 
 // COIN - number of smallest units in one coin
@@ -199,13 +199,13 @@ struct common_config
 
 	static constexpr uint64_t BLOCK_FUTURE_TIME_LIMIT = 60 * 24;
 
-	static constexpr uint64_t CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE = 240 * 1024; // 240 kB
+	static constexpr uint64_t CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE = 300 * 1024; // 240 kB
 	static constexpr uint64_t BLOCK_SIZE_GROWTH_FAVORED_ZONE = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE * 4;
 	static constexpr uint64_t TRANSACTION_SIZE_LIMIT = 300 * 1024;			// 300 kB
 	static constexpr uint64_t BLOCK_SIZE_LIMIT_ABSOLUTE = 16 * 1024 * 1024; // 16 MB
-	static constexpr uint64_t FEE_PER_KB = 500000;
-	static constexpr uint64_t FEE_PER_RING_MEMBER = 500000;
-	static constexpr uint64_t DYNAMIC_FEE_PER_KB_BASE_FEE = 500000;				  // 0.0005 * pow(10, 9)
+	static constexpr uint64_t FEE_PER_KB = 300000;
+	static constexpr uint64_t FEE_PER_RING_MEMBER = 300000;
+	static constexpr uint64_t DYNAMIC_FEE_PER_KB_BASE_FEE = 300000;				  // 0.0005 * pow(10, 9)
 	static constexpr uint64_t DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD = 64000000000; // 64 * pow(10, 9)
 
 	static constexpr uint64_t CRYPTONOTE_MAX_BLOCK_NUMBER = 500000000;
@@ -248,10 +248,10 @@ struct config<MAINNET>
 
 	////////////////////// Dev fund constants
 	// How ofen do we add the dev reward
-	static constexpr uint64_t DEV_FUND_PERIOD = 10; // testing
-	static constexpr uint64_t DEV_FUND_AMOUNT = MK_COINS(20000000);
+	static constexpr uint64_t DEV_FUND_PERIOD = 15 * 24 * 7; // 1 week
+	static constexpr uint64_t DEV_FUND_AMOUNT = MK_COINS(8000000);
 	static constexpr uint64_t DEV_FUND_LENGTH = 52 * 6; // 6 years
-	static constexpr uint64_t DEV_FUND_START  = 749000;
+	static constexpr uint64_t DEV_FUND_START  = 161500;
 };
 
 template <>

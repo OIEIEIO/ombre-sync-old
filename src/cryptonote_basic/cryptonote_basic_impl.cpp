@@ -82,28 +82,21 @@ size_t get_max_tx_size()
 	return common_config::TRANSACTION_SIZE_LIMIT;
 }
 //-----------------------------------------------------------------------------------------------
-template <network_type NETTYPE>
-bool get_dev_fund_amount(uint64_t height, uint64_t& amount)
+uint64_t get_dev_fund_amount_v0(uint64_t tx_total, uint64_t already_generated_coins)
 {
-	amount = 0;
-	if(height < config<NETTYPE>::DEV_FUND_START)
-		return false; // No dev fund output needed because the dev fund didn't start yet
-
-	height -= config<NETTYPE>::DEV_FUND_START;
-
-	if(height / config<NETTYPE>::DEV_FUND_PERIOD >= config<NETTYPE>::DEV_FUND_LENGTH)
-		return false; // No dev fund output needed because the dev fund has ended
-
-	if(height % config<NETTYPE>::DEV_FUND_PERIOD != 0)
-		return false;  // No dev fund output needed because it isn't on the period
-
-	amount = config<NETTYPE>::DEV_FUND_AMOUNT / config<NETTYPE>::DEV_FUND_LENGTH;
-	return true;
+	float mult;
+	mult =  CRYPTONOTE_PROJECT_INITIAL_MULTIPLIER * (1 - std::sqrt((float)already_generated_coins / (float)MONEY_SUPPLY));
+	mult = std::round(mult * 100000) / 100000; // 32bit float rounded to 5 decimal places for consistency (this ensures functional determinism)
+	
+	return tx_total * mult;
 }
 
-template bool get_dev_fund_amount<MAINNET>(uint64_t height, uint64_t& amount);
-template bool get_dev_fund_amount<TESTNET>(uint64_t height, uint64_t& amount);
-template bool get_dev_fund_amount<STAGENET>(uint64_t height, uint64_t& amount);
+uint64_t get_dev_fund_amount_v1(uint64_t tx_total, uint64_t already_generated_coins)
+{
+	float mult;
+	mult = CRYPTONOTE_PROJECT_BLOCK_REWARD;
+	return tx_total * mult;
+}
 
 //-----------------------------------------------------------------------------------------------
 bool get_block_reward(network_type nettype, size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint64_t height)
@@ -157,17 +150,9 @@ bool get_block_reward(network_type nettype, size_t median_size, size_t current_b
 
 	if(current_block_size <= (median_size < common_config::BLOCK_SIZE_GROWTH_FAVORED_ZONE ? median_size * 110 / 100 : median_size))
 	{
-		if(height > 208499) 
-	    {
-	        reward = base_reward / 2;
-	    }
-		else
-		{
-		    reward = base_reward;
-		}
+		reward = base_reward;
+		return true;
 	}
-	
-
 
 	assert(median_size < std::numeric_limits<uint32_t>::max());
 	assert(current_block_size < std::numeric_limits<uint32_t>::max());
