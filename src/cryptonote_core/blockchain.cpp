@@ -3561,6 +3561,14 @@ bool Blockchain::handle_block_to_main_chain(const block &bl, const crypto::hash 
 	// at MONEY_SUPPLY. already_generated_coins is only used to compute the block subsidy and MONEY_SUPPLY yields a
 	// subsidy of 0 under the base formula and therefore the minimum subsidy >0 in the tail state.
 	already_generated_coins = base_reward < (MONEY_SUPPLY - already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY;
+	  if (m_hardfork->get_current_version_num() > 3) 
+	  {
+        already_generated_coins = base_reward < (MONEY_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_V4;
+	  } 
+      else 
+      {
+        already_generated_coins = base_reward < (MONEY_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY;
+      }
 	if(m_db->height())
 		cumulative_difficulty += m_db->get_block_cumulative_difficulty(m_db->height() - 1);
 
