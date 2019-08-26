@@ -102,7 +102,6 @@ inline bool get_dev_fund_amount(network_type nettype, uint64_t height, uint64_t&
 		return false;
 	}
 }
-
 bool get_block_reward(network_type nettype, size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint64_t height);
 uint8_t get_account_address_checksum(const public_address_outer_blob &bl);
 uint8_t get_account_integrated_address_checksum(const public_integrated_address_outer_blob &bl);
